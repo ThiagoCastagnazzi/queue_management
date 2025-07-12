@@ -83,7 +83,7 @@ export default function Index({ totem }: { totem: Totem }) {
             <nav className="bg-sidebar fixed start-0 top-0 z-20 w-full border-b">
                 <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
                     <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <span className="text-sidebar-primary self-center text-2xl font-semibold whitespace-nowrap">Logo Empresa</span>
+                        <span className="text-sidebar-primary self-center text-2xl font-semibold whitespace-nowrap">Queue Management</span>
                     </a>
                     <div className="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">
                         <ul>
