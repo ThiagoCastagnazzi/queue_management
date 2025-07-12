@@ -1,0 +1,49 @@
+services:
+  app:
+    build:
+    context: .
+    dockerfile: Dockerfile
+    image: 'queue_management_app'
+    ports:
+      - '${FORWARD_APP_PORT:-8000}:80'
+    environment:
+    APP_ENV: '${APP_ENV}'
+    APP_DEBUG: '${APP_DEBUG}'
+    APP_URL: '${APP_URL}'
+    DB_CONNECTION: '${DB_CONNECTION}'
+    DB_HOST: '${DB_HOST}'
+    DB_PORT: '${DB_PORT}'
+    DB_DATABASE: '${DB_DATABASE}'
+    DB_USERNAME: '${DB_USERNAME}'
+    DB_PASSWORD: '${DB_PASSWORD}'
+    volumes:
+      - '.:/var/www/html'
+    networks:
+      - sail
+    depends_on:
+      - postgres
+  postgres:
+  image: 'postgres:latest'
+  ports:
+    - '${FORWARD_DB_PORT:-5432}:5432'
+  environment:
+    POSTGRES_DB: '${DB_DATABASE}'
+    POSTGRES_USER: '${DB_USERNAME}'
+    POSTGRES_PASSWORD: '${DB_PASSWORD}'
+  volumes:
+    - 'sail-postgres:/var/lib/postgresql/data'
+  networks:
+    - sail
+  healthcheck:
+    test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME}']
+    interval: 10s
+    retries: 5
+    start_period: 30s
+
+networks:
+  sail:
+    driver: bridge
+
+volumes:
+  sail-postgres:
+    driver: local
