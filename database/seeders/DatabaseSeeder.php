@@ -21,21 +21,20 @@ class DatabaseSeeder extends Seeder
     {
         if (config('app.env') === 'local') {
             User::factory()->create([
-                'name' => 'Test User',
-                'email' => 'test@example.com',
+                'name' => 'Atendente',
+                'email' => 'atendente@email.com',
+                'password' => bcrypt('atendente123'),
             ]);
-
-            Service::factory(10)->create();
-            Monitor::factory(10)->create();
-            BoothServices::factory(10)->create();
-            Attendance::factory(10)->create();
-            AttendanceNotes::factory(10)->create();
-            TotemServices::factory(10)->create();
+            User::factory()->create([
+                'name' => 'Médico',
+                'email' => 'medico@email.com',
+                'password' => bcrypt('medico123'),
+            ]);
         } else {
             User::factory()->create([
                 'name' => 'Thiago Castagnazzi',
                 'email' => 'thiago@gmail.com',
-                'password' => bcrypt('thiago'),
+                'password' => bcrypt('thiago123'),
             ]);
         }
     }

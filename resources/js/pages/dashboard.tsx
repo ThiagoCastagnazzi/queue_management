@@ -3,6 +3,7 @@ import { Table } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { IndexProps, type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
+import moment from 'moment';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -34,7 +35,7 @@ export default function Dashboard(props: DashboardProps) {
         return {
             ...ticket,
             statusTranslated: statusTranslatedPT.find((status) => status.status === ticket.status)?.translated,
-            createdAtFormatted: new Date(ticket.created_at).toLocaleDateString() + ' ' + String(ticket.created_at).split('T')[1].split('.')[0],
+            createdAtFormatted: moment(ticket.created_at).format('DD/MM/YYYY HH:mm:ss'),
         };
     });
 

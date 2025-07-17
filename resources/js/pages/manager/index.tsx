@@ -4,6 +4,7 @@ import { ManagerTable } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { Booth, BreadcrumbItem, IndexProps, Ticket } from '@/types';
 import { router } from '@inertiajs/react';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -74,7 +75,7 @@ export default function Index(props: DashboardProps) {
         tickets?.data?.map((ticket) => {
             return {
                 ...ticket,
-                formattedCreatedAt: new Date(ticket.created_at).toLocaleDateString() + ' ' + String(ticket.created_at).split('T')[1].split('.')[0],
+                formattedCreatedAt: moment(ticket.created_at).format('DD/MM/YYYY HH:mm:ss'),
                 priorityTranslated: priorityTranslatedPT.find((priority) => priority.priority === ticket.priority)?.translated,
                 statusTranslated: statusTranslatedPT.find((status) => status.status === ticket.status)?.translated,
             };

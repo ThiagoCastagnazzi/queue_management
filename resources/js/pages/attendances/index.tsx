@@ -2,6 +2,7 @@ import Pagination from '@/components/pagination';
 import { Table } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem, IndexProps } from '@/types';
+import moment from 'moment';
 
 export default function Index({ attendances }: { attendances: IndexProps['attendances'] }) {
     const statusTranslatedPT = [
@@ -17,11 +18,8 @@ export default function Index({ attendances }: { attendances: IndexProps['attend
     const newData = attendances.data.map((attendance) => {
         return {
             ...attendance,
-            formattedCreatedAt:
-                new Date(attendance.created_at).toLocaleDateString() + ' ' + String(attendance.created_at).split('T')[1].split('.')[0],
-            formattedFinishTime: attendance.finish_time
-                ? new Date(attendance.finish_time).toLocaleDateString() + ' ' + String(attendance.finish_time).split(' ')[1].split('.')[0]
-                : '',
+            formattedCreatedAt: moment(attendance.created_at).format('DD/MM/YYYY HH:mm:ss'),
+            formattedFinishTime: attendance.finish_time ? moment(attendance.finish_time).format('DD/MM/YYYY HH:mm:ss') : '',
             ticketCode: attendance?.ticket?.code ?? 'Atendimento sem senha',
             statusTranslated: statusTranslatedPT.find((status) => status.status === attendance.status)?.translated,
             serviceName: attendance.service.name,

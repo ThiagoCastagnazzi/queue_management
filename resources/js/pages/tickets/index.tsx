@@ -2,6 +2,7 @@ import Pagination from '@/components/pagination';
 import { Table } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem, IndexProps } from '@/types';
+import moment from 'moment';
 
 export default function Index({ tickets }: { tickets: IndexProps['tickets'] }) {
     const statusTranslatedPT = [
@@ -22,7 +23,7 @@ export default function Index({ tickets }: { tickets: IndexProps['tickets'] }) {
     const newData = tickets.data.map((ticket) => {
         return {
             ...ticket,
-            formattedCreatedAt: new Date(ticket.created_at).toLocaleDateString() + ' ' + String(ticket.created_at).split('T')[1].split('.')[0],
+            formattedCreatedAt: moment(ticket.created_at).format('DD/MM/YYYY HH:mm:ss'),
             priorityTranslated: priorityTranslatedPT.find((priority) => priority.priority === ticket.priority)?.translated,
             statusTranslated: statusTranslatedPT.find((status) => status.status === ticket.status)?.translated,
         };
